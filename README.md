@@ -1,6 +1,8 @@
 # Your-Steam-Library-Infomercial
 Rediscover your Steam Library!
 
+Download "Your Steam Library Infomercial.ps1" and run it.
+
 PURPOSE
     
         Provide Steam Users with an Infomercial or demo-mode to help them explore their Steam Library.

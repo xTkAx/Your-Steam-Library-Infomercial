@@ -116,7 +116,7 @@
 
         [bool] $DefaultForward = $true                       # $false = will default to iterate stream backwards [user changes this in stream using forward/backward arrows or urls].
 
-        [bool] $ShowVideoControls = $true                   # $true = will show HTML5 video controls for <video> elements.
+        [bool] $ShowVideoControls = $false                   # $true = will show HTML5 video controls for <video> elements.
 
         [uint16] $OnScreenControlFadeTime = 1000             # Milliseconds of no mouse movement for the on-screen controls to fade out [0 will hide them].
 

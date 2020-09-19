@@ -40,7 +40,7 @@ INTERACTIONS:
 
         VIDEO OR IMAGE PAGE:
             -Logo Button - clicking will take you to the Steam Page of the game being played.
-            -Play Button - clicking will launch the steam client.  If you own the game it will attempt to play or install. If not it will take you to the Steam store page.
+            -Play Button - Clicking will launch the steam client to attempt to play or install, or take you to the Steam store page.
             -Home Button - Clicking will take you to HOME PAGE WHEN PROFILE IS LOADED.
             -Reload Button - Clicking will cycle you to the next media available for the current game.
             -Backward Arrow Button - Go to the profile's previous game.

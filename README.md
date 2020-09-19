@@ -18,14 +18,14 @@ PURPOSE
 
         It pulls resources from Steam, and uses your own computer's resources.
 
-    USAGE
+USAGE
 
         -View the VARIABLES / USER section of the script for available fine tuning before running.
         -Run the powershell script on a Windows computer.
         -The script is primarily handled through the front-end browser interface.
         -The back-end is primarily used to alert the user of what's happening.
 
-    INTERACTIONS:
+INTERACTIONS:
 
         HOME PAGE:
             -Search Box - enter a full steam profile address.
@@ -50,7 +50,7 @@ PURPOSE
             -None.
 
 
-    BEST USAGE:
+BEST USAGE:
 
         -Start Script with default settings.
         -Visit http://localhost:8080 if the web page doesn't open.
@@ -59,7 +59,7 @@ PURPOSE
         -Use on-screen buttons to navigate. See: INTERACTIONS
         
                 
-    PROBLEMS
+PROBLEMS
 
         If you encounter problems with it:
         - Close your instance of Powershell to purge all variables, and retry again with the original script.
@@ -76,11 +76,11 @@ PURPOSE
         but due to the game data being stored locally it can have unintended effects if more than one user uses it
         (such as seeing games that aren't in your library).
 
-    TECHNICAL
+TECHNICAL
 
         Internet required!
 
-    TESTING:
+TESTING
 
         Windows 10 Version 2004
         Powershell Version 5.1.19041.1

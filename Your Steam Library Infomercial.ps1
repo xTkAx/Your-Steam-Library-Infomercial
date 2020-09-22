@@ -2863,7 +2863,7 @@ if ($RunScript)
             
                 if (($ThisGame.Videos.Count -eq 0) -and ($ThisGame.Images.All.Count -eq 0))
                 {
-                    BadeMsg "No media to use for '$($ThisGame.Name)' @ '$($ThisGame.Store)'.."
+                    BadMsg "No media to use for '$($ThisGame.Name)' @ '$($ThisGame.Store)'.."
 
                     SendUserToNextGame
 

@@ -29,7 +29,6 @@ control by stepping forward or backwards through the library!
         
 ![Infomercial Screen](https://user-images.githubusercontent.com/16578236/93937232-c62d3b80-fcfd-11ea-8ced-9088a873d189.png)
 
-
 ![Back End View](https://user-images.githubusercontent.com/16578236/93937280-d80ede80-fcfd-11ea-8c78-4264adca7afc.png)
 
 

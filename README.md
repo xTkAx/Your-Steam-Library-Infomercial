@@ -16,6 +16,10 @@ It provides Steam Users with an Infomercial or demo-mode to help them explore th
 Watch the infomercial-like presentation as you drift off to sleep, or when you're bored, or take
 control by stepping forward or backwards through the library!
 
+![Infomercial Screen](https://user-images.githubusercontent.com/16578236/93937232-c62d3b80-fcfd-11ea-8ced-9088a873d189.png)
+
+![Back End View](https://user-images.githubusercontent.com/16578236/93941345-a0effb80-fd04-11ea-8fb7-ed0aa40e0e8c.png)
+
 
 
 ## USAGE
@@ -26,21 +30,19 @@ control by stepping forward or backwards through the library!
 5. Click search, and it will generate a randomized playlist of games.
 6. Press F11 in your browser, sit back and enjoy!
 7. Use on-screen buttons to navigate. See: INTERACTIONS
-        
-![Infomercial Screen](https://user-images.githubusercontent.com/16578236/93937232-c62d3b80-fcfd-11ea-8ced-9088a873d189.png)
-
-![Back End View](https://user-images.githubusercontent.com/16578236/93941345-a0effb80-fd04-11ea-8fb7-ed0aa40e0e8c.png)
 
 
 
 ## OPTIONAL
-View the VARIABLES / USER section of the script for available fine tuning before running.
+View/set user variables on line **145** - **169** for fine tuning before running.
 
 
 
 ## INTERACTIONS
 
+
 **HOME PAGE**
+
 - Search Box - enter a full steam profile address.
 
 - Submit Button - Submit a search
@@ -49,7 +51,8 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **HOME PAGE WHEN PROFILE IS LOADED**
- (The same as HOME PAGE, but including:)
+ 
+ The same as HOME PAGE, but includes:
  
 - Profile Button - clicking will take you to the profile page of the library you're currently viewing.
 
@@ -59,6 +62,7 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **VIDEO OR IMAGE PAGE**
+
 - Logo Button - Clicking will take you to the Steam Page of the game being played.
 
 - Play Button - Clicking will launch the steam client to attempt to play or install, or take you to the Steam store page.
@@ -73,6 +77,7 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **QUIT PAGE**
+
 - None.
 
 
@@ -82,7 +87,7 @@ _For general problems:_
 
 - Close your instance of Powershell to purge all variables, and retry again with the original script.
 
-- Capture a log.. or any unhandled errors.. paste them to github.
+- Capture a log, or any unhandled errors, and paste them to github.
 
 
 
@@ -94,7 +99,9 @@ _If videos don't seem to be playing, it may be due to the browser settings preve
 
 _If you don't quit the script gracefully, you might leave a web port open, and might need to manually run "StopServer" in the terminal to terminate it._
 
-This is a single-user web application.  Technically more than one person can use it at a time, but due to the game data being stored locally it can have unintended effects if more than one user uses it (such as seeing games that aren't in your library).
+_This is a single-user web application._
+
+Technically more than one person can use it at a time, but due to the game data being stored locally it can have unintended effects if more than one user uses it (such as seeing games that aren't in your library).
 
 
 
@@ -103,7 +110,8 @@ Internet required!
 
 
 
-## TESTING
+## TESTED IN
+
 Windows 10 Version 2004
 
 Powershell Version 5.1.19041.1

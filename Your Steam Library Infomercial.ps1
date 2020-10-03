@@ -1,5 +1,6 @@
 ﻿#region <# INFORMATION #>
 <#
+
 # Your-Steam-Library-Infomercial
 ## Rediscover your Steam Library!
 ![Your Steam Library Infomercial](https://user-images.githubusercontent.com/16578236/93937273-d5ac8480-fcfd-11ea-916e-96a27ab960de.png)
@@ -18,6 +19,10 @@ It provides Steam Users with an Infomercial or demo-mode to help them explore th
 Watch the infomercial-like presentation as you drift off to sleep, or when you're bored, or take
 control by stepping forward or backwards through the library!
 
+![Infomercial Screen](https://user-images.githubusercontent.com/16578236/93937232-c62d3b80-fcfd-11ea-8ced-9088a873d189.png)
+
+![Back End View](https://user-images.githubusercontent.com/16578236/93941345-a0effb80-fd04-11ea-8fb7-ed0aa40e0e8c.png)
+
 
 
 ## USAGE
@@ -28,21 +33,19 @@ control by stepping forward or backwards through the library!
 5. Click search, and it will generate a randomized playlist of games.
 6. Press F11 in your browser, sit back and enjoy!
 7. Use on-screen buttons to navigate. See: INTERACTIONS
-        
-![Infomercial Screen](https://user-images.githubusercontent.com/16578236/93937232-c62d3b80-fcfd-11ea-8ced-9088a873d189.png)
-
-![Back End View](https://user-images.githubusercontent.com/16578236/93941345-a0effb80-fd04-11ea-8fb7-ed0aa40e0e8c.png)
 
 
 
 ## OPTIONAL
-View the VARIABLES / USER section of the script for available fine tuning before running.
+View/set user variables on line **145** - **169** for fine tuning before running.
 
 
 
 ## INTERACTIONS
 
+
 **HOME PAGE**
+
 - Search Box - enter a full steam profile address.
 
 - Submit Button - Submit a search
@@ -51,7 +54,8 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **HOME PAGE WHEN PROFILE IS LOADED**
- (The same as HOME PAGE, but including:)
+ 
+ The same as HOME PAGE, but includes:
  
 - Profile Button - clicking will take you to the profile page of the library you're currently viewing.
 
@@ -61,6 +65,7 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **VIDEO OR IMAGE PAGE**
+
 - Logo Button - Clicking will take you to the Steam Page of the game being played.
 
 - Play Button - Clicking will launch the steam client to attempt to play or install, or take you to the Steam store page.
@@ -75,6 +80,7 @@ View the VARIABLES / USER section of the script for available fine tuning before
 
 
 **QUIT PAGE**
+
 - None.
 
 
@@ -84,7 +90,7 @@ _For general problems:_
 
 - Close your instance of Powershell to purge all variables, and retry again with the original script.
 
-- Capture a log.. or any unhandled errors.. paste them to github.
+- Capture a log, or any unhandled errors, and paste them to github.
 
 
 
@@ -96,7 +102,9 @@ _If videos don't seem to be playing, it may be due to the browser settings preve
 
 _If you don't quit the script gracefully, you might leave a web port open, and might need to manually run "StopServer" in the terminal to terminate it._
 
-This is a single-user web application.  Technically more than one person can use it at a time, but due to the game data being stored locally it can have unintended effects if more than one user uses it (such as seeing games that aren't in your library).
+_This is a single-user web application._
+
+Technically more than one person can use it at a time, but due to the game data being stored locally it can have unintended effects if more than one user uses it (such as seeing games that aren't in your library).
 
 
 
@@ -105,7 +113,8 @@ Internet required!
 
 
 
-## TESTING
+## TESTED IN
+
 Windows 10 Version 2004
 
 Powershell Version 5.1.19041.1
@@ -136,6 +145,8 @@ Microsoft Edge Version 44.19041.423.0
         [bool] $RunScript = $true
 
         [bool] $Logging = $false                             # $true = Will log all selected output.  SEE: $LogFile & <# MESSAGE DISPLAY CONTROL #>
+
+        [bool] $ShowGamesProtectedByAgeCheck = $true         # $false will not show any age-protected games.
 
         [bool] $SaveProfileData = $false                     # $true = Will save retrieved $Global:Profiles data on graceful exit.  SEE: $SaveFile
 
@@ -222,15 +233,15 @@ Microsoft Edge Version 44.19041.423.0
         #region <# HOME/QUIT PAGE COLOUR #>
 
 
-        [string] $PageTopGradient = "#141d2d"
+            [string] $PageTopGradient = "#141d2d"
 
-        [string] $PageBottomGradient = "#1f2021"
+            [string] $PageBottomGradient = "#1f2021"
 
-        [string] $TitleTopGradient = "#1b2838"
+            [string] $TitleTopGradient = "#1b2838"
 
-        [string] $TitleBottomGradient = "#2a475e"
+            [string] $TitleBottomGradient = "#2a475e"
 
-        [string] $TitleTextColor = "#b2ddf5"
+            [string] $TitleTextColor = "#b2ddf5"
 
 
         #endregion <# HOME/QUIT PAGE COLORS #>
@@ -427,7 +438,7 @@ Microsoft Edge Version 44.19041.423.0
 
                         BadMsg "Problem writing log to '$($LogFile)':`r`n$($_)"
 
-                        NoticeMsg "Logging disabled.."
+                        NoticeMsg "Logging disabled"
                     }
                 }
             }
@@ -543,7 +554,7 @@ Microsoft Edge Version 44.19041.423.0
 
             try
             {
-                NoticeMsg "Initializing web server.."
+                NoticeMsg "Initializing web server"
 
                 $Global:WebServer = [System.Net.HttpListener]::new()
 
@@ -566,7 +577,7 @@ Microsoft Edge Version 44.19041.423.0
             }
             else
             {
-                BadMsg "Web server failed to load."
+                BadMsg "Web server failed to load"
 
                 exit
             }
@@ -577,14 +588,14 @@ Microsoft Edge Version 44.19041.423.0
         {
             if (!$Global:WebServer.IsListening)
             {
-                NoticeMsg "Web server is not running."
+                NoticeMsg "Web server is not running"
 
                 return
             }
 
             try
             {
-                NoticeMsg "Stopping web server.."
+                NoticeMsg "Stopping web server"
 
                 $Global:WebServer.Stop()
 
@@ -597,11 +608,11 @@ Microsoft Edge Version 44.19041.423.0
 
             if (!$Global:WebServer.IsListening)
             {
-                GoodMsg "Web server terminated."
+                GoodMsg "Web server terminated"
             }
             else
             {
-                BadMsg "Web server failed to unload (Try running StopServer manually)."
+                BadMsg "Web server failed to unload (Try running StopServer manually)"
             }
         }
 
@@ -612,7 +623,7 @@ Microsoft Edge Version 44.19041.423.0
 
             try
             {
-                NetMsg "Sending response to user.."
+                NetMsg "Sending response to user"
 
                 $Global:Context.Response.ContentLength64 = $Stream.Length
 
@@ -635,7 +646,7 @@ Microsoft Edge Version 44.19041.423.0
 
             try
             {
-                NetMsg "Redirecting user to '$($WebServerAddress)$($Location)'.."
+                NetMsg "Redirecting user to '$($WebServerAddress)$($Location)'"
 
                 $Global:Context.Response.Redirect($Location)
 
@@ -652,7 +663,7 @@ Microsoft Edge Version 44.19041.423.0
 
         function SendUserToNextGame
         {
-            ActionMsg "Sending user to next game.."
+            ActionMsg "Sending user to next game"
 
             RedirectUser (UserDirection)
         }
@@ -668,7 +679,7 @@ Microsoft Edge Version 44.19041.423.0
         {
             Param( [Parameter(Position = 0, Mandatory=$true)] [string] $URL )
 
-            WebMsg "Invoking web request to retrieve '$($URL)'.."
+            WebMsg "Invoking web request to retrieve '$($URL)'"
 
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
@@ -684,9 +695,17 @@ Microsoft Edge Version 44.19041.423.0
 
                 if($WebObject.content -like "*$($SteamAgeCheckPattern)*")
                 {
-                    NoticeMsg "This game has an age check.."
 
-                    $WebObject = BypassAgeCheck -WebResponse $WebObject -URL $URL -ErrorAction Stop
+                    NoticeMsg "This game has an age check"
+
+                    if ($ShowGamesProtectedByAgeCheck)
+                    {
+                        $WebObject = BypassAgeCheck -WebResponse $WebObject -URL $URL -ErrorAction Stop
+                    }
+                    else
+                    {
+                        BadMsg "`$ShowGamesProtectedByAgeCheck set to `$false - no media will be found"
+                    }
                 }
 
                 #throw "UNCOMMENTED THROW TEST ON LINE $(GetScriptErrorLine)"
@@ -714,16 +733,18 @@ Microsoft Edge Version 44.19041.423.0
 
             <# This is a bit of a mess. $SteamWebSession proved difficult to reuse.  May look at it in the future. #>
 
-            ActionMsg "Getting Header Cookie.."
+            #throw "
+
+            ActionMsg "Getting Header Cookie"
 
             [string] $SessionID = ($WebResponse.Headers.$SteamSetcookie).split(';')[0]
 
             if ($SessionID -eq "")
             {
-                throw "Session ID could not be found in WebResponse (Time to udpate the script?).."
+                throw "Session ID could not be found in WebResponse (Time to udpate the script?)"
             }
 
-            ActionMsg "Preparing age check post response for Steam.."
+            ActionMsg "Preparing age check post response for Steam"
 
             [uint16] $BirthYear = ([uint16] (Get-Date).ToString("yyyy")) - (Get-Random -Minimum 25 -Maximum 75)
 
@@ -733,7 +754,7 @@ Microsoft Edge Version 44.19041.423.0
 
             try
             {
-                WebMsg "Posting '$($ReturnData)' to '$($ReturnURL)'.."
+                WebMsg "Posting '$($ReturnData)' to '$($ReturnURL)'"
 
                 [Microsoft.PowerShell.Commands.WebResponseObject] $Response = Invoke-WebRequest $ReturnURL -WebSession $SteamWebSession -Body $ReturnData -Method Post -ErrorAction STOP
 
@@ -750,7 +771,7 @@ Microsoft Edge Version 44.19041.423.0
 
             try
             {
-                WebMsg "Invoking web request to re-retrieve '$($URL)'.."
+                WebMsg "Invoking web request to re-retrieve '$($URL)'"
 
                 [Microsoft.PowerShell.Commands.WebResponseObject] $NewWebObject = Invoke-WebRequest -Uri $URL -UseBasicParsing -WebSession $SteamWebSession
 
@@ -775,11 +796,11 @@ Microsoft Edge Version 44.19041.423.0
 
             if($WebResponse.StatusCode -ne 200)
             {
-                throw "[Status $($WebResponse.StatusDescription), Code $($WebResponse.StatusCode)].."
+                throw "[Status $($WebResponse.StatusDescription), Code $($WebResponse.StatusCode)]"
             }
             else
             {
-                WebMsg "Good Response: [Status $($WebResponse.StatusDescription), Code $($WebResponse.StatusCode)].."
+                WebMsg "Good Response: [Status $($WebResponse.StatusDescription), Code $($WebResponse.StatusCode)]"
             }
         }
 
@@ -819,7 +840,7 @@ Microsoft Edge Version 44.19041.423.0
             #>
             [string] $RegexPattern = "^(?i)(https?:\/\/)?(www.)?steamcommunity.com\/(id|profiles)\/[a-zA-z0-9_-]+(\/)?$"
 
-            ActionMsg "Validating user data '$($UserData)'.."
+            ActionMsg "Validating user data '$($UserData)'"
 
             return ($UserData -Match $RegexPattern)
         }
@@ -862,11 +883,11 @@ Microsoft Edge Version 44.19041.423.0
 
             if ($Formatted)
             {
-                ActionMsg "User data formatted to proper URL: '$($UserData)'.."
+                ActionMsg "User data formatted to proper URL: '$($UserData)'"
             }
             else
             {
-                ActionMsg "User data was a proper URL.."
+                ActionMsg "User data was a proper URL"
             }
 
             return $UserData
@@ -881,7 +902,7 @@ Microsoft Edge Version 44.19041.423.0
                 {
                     $Script:DefaultForward = $true
 
-                    NoticeMsg "User sitched direction to '/$($Forward)'.."
+                    NoticeMsg "User sitched direction to '/$($Forward)'"
                 }
             }
             elseif ($Global:Context.Request.RawUrl -eq "/$($Backward)")
@@ -890,7 +911,7 @@ Microsoft Edge Version 44.19041.423.0
                 {
                     $Script:DefaultForward = $false
 
-                    NoticeMsg "User sitched direction to '/$($Backward)'.."
+                    NoticeMsg "User sitched direction to '/$($Backward)'"
                 }
             }
         }
@@ -964,14 +985,14 @@ Microsoft Edge Version 44.19041.423.0
 
         function ProfileHasGames
         {
-            ActionMsg "Checking for games.."
+            ActionMsg "Checking for games"
 
             if (($ThisProfile -eq $null) -or
                 ($ThisProfile.Games.Count -eq 0))
             {
                 [string] $NoGames = "No games to display"
 
-                BadMsg "$($NoGames).."
+                BadMsg "$($NoGames)"
 
                 [string] $Issue = "$($NoGames):"
 
@@ -992,7 +1013,7 @@ Microsoft Edge Version 44.19041.423.0
 
         function SelectGame
         {
-            ActionMsg "Selecting game.."
+            ActionMsg "Selecting game"
 
             if ($Global:Context.Request.RawUrl -eq "/$($ViewMore)")
             {
@@ -1061,7 +1082,7 @@ Microsoft Edge Version 44.19041.423.0
             {
                 try
                 {
-                    ActionMsg "Exporting `$Global:Profile data to '$($SaveFile)'.."
+                    ActionMsg "Exporting `$Global:Profile data to '$($SaveFile)'"
 
                     $Global:Profiles | ConvertTo-Json -Depth 100 | out-file $SaveFile
 
@@ -1076,7 +1097,7 @@ Microsoft Edge Version 44.19041.423.0
             }
             elseif ($SaveProfileData)
             {
-                BadMsg "`$SaveProfileData was set to true, but no profile data was gathered in this run.."
+                BadMsg "`$SaveProfileData was set to true, but no profile data was gathered in this run"
 
                 $Script:DumpProfilesToSaveFile = $false
             }
@@ -1085,7 +1106,7 @@ Microsoft Edge Version 44.19041.423.0
 
         function FlushVariables
         {
-            ActionMsg "Flushing variables.."
+            ActionMsg "Flushing variables"
 
             $Script:ThisProfile = $null
 
@@ -2114,7 +2135,7 @@ Microsoft Edge Version 44.19041.423.0
 
                                             videoContainer.addEventListener('playing',onVideoPlay,false);
 
-                                            //videoContainer.addEventListener('stalled',onVideoStalled,false); /* TODO?  in short.. handle if a video has a network issue. */
+                                            //videoContainer.addEventListener('stalled',onVideoStalled,false); /* TODO?  in short, handle if a video has a network issue. */
 
 
                                                 /* Volume fader interval trigger: */
@@ -2365,22 +2386,22 @@ Microsoft Edge Version 44.19041.423.0
 #region <# MAIN SCRIPT #>
 
 
-GoodMsg "$($ScriptName) has begun.."
+GoodMsg "$($ScriptName) has begun"
 
 if($Logging)
 {
-    NoticeMsg "Logging to '$($LogFile)'.."
+    NoticeMsg "Logging to '$($LogFile)'"
 }
 
 if ($RunScript)
 {
     StartServer
 
-    ActionMsg "Attempting to open user web browser.."
+    ActionMsg "Attempting to open user web browser"
 
     Invoke-Expression “cmd.exe /C start $($WebServerRoot)”
 
-    NoticeMsg "If nothing is happening, visit $($WebServerRoot) using a web browser on this computer.."
+    NoticeMsg "If nothing is happening, visit $($WebServerRoot) using a web browser on this computer"
 
     [string] $PageError = ""
 
@@ -2394,9 +2415,9 @@ if ($RunScript)
                 ($Global:Context.Request.RawUrl -eq "/" -or
                  $Global:Context.Request.RawUrl -eq "/$($Home)" ))
             {
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
-                ActionMsg "Building $($Global:Context.Request.Url) for user.."
+                ActionMsg "Building $($Global:Context.Request.Url) for user"
 
                 [string] $PageName = "Rediscover your Steam Library!"
 
@@ -2438,9 +2459,9 @@ if ($RunScript)
                     $Global:Context.Request.RawUrl -eq "/$($Quit)")
             {
 
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
-                ActionMsg "Building $($Global:Context.Request.Url) for user.."
+                ActionMsg "Building $($Global:Context.Request.Url) for user"
 
                 [string] $PageName = "Ended!"
 
@@ -2456,7 +2477,7 @@ if ($RunScript)
 
                 $HTML = GeneratePage $Head $Body
 
-                ActionMsg "Toggling `$RunScript flag.."
+                ActionMsg "Toggling `$RunScript flag"
 
                 $RunScript = !$RunScript
 
@@ -2475,10 +2496,10 @@ if ($RunScript)
             elseif ($Global:Context.Request.HttpMethod -eq "POST" -and
                     $Global:Context.Request.RawUrl -eq "/$($ValidateProfile)")
             {
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
 
-                ActionMsg "Analyzing user data.."
+                ActionMsg "Analyzing user data"
 
                 [string] $UserData =  ExtractUserData
 
@@ -2489,7 +2510,7 @@ if ($RunScript)
 
                     [string] $InvalidURL = "'$($UserData)' is not a valid address"
 
-                    BadMsg "$($InvalidURL).."
+                    BadMsg "$($InvalidURL)"
 
                     [string] $Issue = "$($InvalidURL)!"
 
@@ -2510,7 +2531,7 @@ if ($RunScript)
 
                 if (ProfileRetrieved $ValidProfileURL)
                 {
-                    NoticeMsg "Using previously retrieved profile for '$($ValidProfileURL)'.."
+                    NoticeMsg "Using previously retrieved profile for '$($ValidProfileURL)'"
 
                     [Profile] $ThisProfile = $Global:Profiles | Where-Object -Property URL -eq $ValidProfileURL
                 }
@@ -2544,14 +2565,14 @@ if ($RunScript)
                     }
 
 
-                    ActionMsg "Parsing profile page.."
+                    ActionMsg "Parsing profile page"
 
                     [System.MarshalByRefObject] $ProfilePage = New-Object -Com "HTMLFile"
 
                     $ProfilePage.Write([System.Text.Encoding]::Unicode.GetBytes($ProfileWebObject))
 
 
-                    ActionMsg "Gathering raw game data.."
+                    ActionMsg "Gathering raw game data"
 
                     [string] $RawGameData = ""
 
@@ -2579,9 +2600,9 @@ if ($RunScript)
                             $ProfileStatus += "The profile was not found"
                         }
 
-                        BadMsg "$($ProfileStatus)."
+                        BadMsg "$($ProfileStatus)"
 
-                        [string] $Issue = "$($ProfileStatus)."
+                        [string] $Issue = "$($ProfileStatus)"
 
                         [string] $Detail = "See for yourself: <a href='$($ValidProfileURL)$($SteamProfileGamesSuffix)' target='_blank'>$($ValidProfileURL)$($SteamProfileGamesSuffix)</a><br/>"
 
@@ -2595,14 +2616,14 @@ if ($RunScript)
                     }
 
 
-                    ActionMsg "Cleaning raw game data for JSON conversion.."
+                    ActionMsg "Cleaning raw game data for JSON conversion"
 
                     $RawGameData = PrepareRawGameDataForJSON $RawGameData
 
                     [System.Array] $JSONGameData = $null
 
 
-                    ActionMsg "Generating JSON game data.."
+                    ActionMsg "Generating JSON game data"
                     try
                     {
                         $JSONGameData = $RawGameData | ConvertFrom-JSON -ErrorAction Stop
@@ -2635,9 +2656,9 @@ if ($RunScript)
                     {
                         [string] $UserStatus = "The profile game library is not public, or has no games"
 
-                        BadMsg "$($UserStatus).."
+                        BadMsg "$($UserStatus)"
 
-                        [string] $Issue = "$($UserStatus)."
+                        [string] $Issue = "$($UserStatus)"
 
                         [string] $Detail = "See for yourself: <a href='$($ValidProfileURL)$($SteamProfileGamesSuffix)' target='_blank'>$($ValidProfileURL)$($SteamProfileGamesSuffix)</a><br/>"
 
@@ -2651,14 +2672,14 @@ if ($RunScript)
                     }
 
 
-                    ActionMsg "Creating new profile object.."
+                    ActionMsg "Creating new profile object"
 
                     [Profile] $ThisProfile = new-Object Profile
 
                     $ThisProfile.URL = $ValidProfileURL
 
 
-                    ActionMsg "Gathering profile avatar.."
+                    ActionMsg "Gathering profile avatar"
 
                     try
                     {
@@ -2668,11 +2689,11 @@ if ($RunScript)
                     }
                     catch
                     {
-                        BadMsg "Could not get avatar.."
+                        BadMsg "Could not get avatar"
                     }
 
 
-                    ActionMsg "Gathering profile name.."
+                    ActionMsg "Gathering profile name"
 
                     try
                     {
@@ -2682,11 +2703,11 @@ if ($RunScript)
                     }
                     catch
                     {
-                        BadMsg "Could not getname.."
+                        BadMsg "Could not getname"
                     }
 
 
-                    ActionMsg "Injecting randomized JSON game data into profile object.."
+                    ActionMsg "Injecting randomized JSON game data into profile object"
 
                     $JSONGameData = $JSONGameData | Sort-Object | Get-Random -Count ([int]::MaxValue)
 
@@ -2718,7 +2739,7 @@ if ($RunScript)
 
                     $Global:Profiles += $ThisProfile
 
-                    NoticeMsg "`$Global:Profiles now contains $($Global:Profiles.Count) profile$(if ($Global:Profiles.Count -ne 1){"s"}).."
+                    NoticeMsg "`$Global:Profiles now contains $($Global:Profiles.Count) profile$(if ($Global:Profiles.Count -ne 1){"s"})"
                 }
 
                 $ThisProfile.WebFailureCount = 0;
@@ -2736,7 +2757,7 @@ if ($RunScript)
             elseif ($Global:Context.Request.HttpMethod -eq "GET" -and
                     $Global:Context.Request.RawUrl -eq "/$($Reload)")
             {
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
                 if (!(ProfileHasGames))
                 {
@@ -2745,7 +2766,7 @@ if ($RunScript)
 
                 if ($ThisProfile.ReloadCount -le 0)
                 {
-                    NoticeMsg "No more reloads for '$($ThisProfile.Games[$ThisProfile.Index].Name)'.."
+                    NoticeMsg "No more reloads for '$($ThisProfile.Games[$ThisProfile.Index].Name)'"
 
                     SendUserToNextGame
 
@@ -2755,7 +2776,7 @@ if ($RunScript)
                 {
                     $ThisProfile.ReloadCount -= 1
 
-                    ActionMsg "Reloading last page for '$($ThisProfile.Games[$ThisProfile.Index].Name)'.."
+                    ActionMsg "Reloading last page for '$($ThisProfile.Games[$ThisProfile.Index].Name)'"
 
                     [byte[]] $Stream = [System.Text.Encoding]::UTF8.GetBytes($html) #$html should already be in memory to work with.
 
@@ -2777,7 +2798,7 @@ if ($RunScript)
                      $Global:Context.Request.RawUrl -eq "/$($ViewMore)" -or
                      $Global:Context.Request.RawUrl -eq "/$($Backward)"))
             {
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
                 UserDirectionChangeCheck
 
@@ -2785,11 +2806,11 @@ if ($RunScript)
                 {
                     [string] $WebFailure = "Too many web retrieval errors occurred"
 
-                    BadMsg "$($WebFailure).."
+                    BadMsg "$($WebFailure)"
 
                     [string] $Issue = "$($WebFailure):"
 
-                    [string] $Detail = "$($ThisProfile.WebFailureCount) web request failures in a row met `$WebFailureLimit of $($WebFailureLimit)."
+                    [string] $Detail = "$($ThisProfile.WebFailureCount) web request failures in a row met `$WebFailureLimit of $($WebFailureLimit)"
 
                     [string] $Suggest = "Is your network experiencing problems?  Try again later!"
 
@@ -2815,7 +2836,7 @@ if ($RunScript)
 
                 if (!$ThisGame.RetrievedFromWeb)
                 {
-                    ActionMsg "Retrieving information from the web.."
+                    ActionMsg "Retrieving information from the web"
 
                     [Microsoft.PowerShell.Commands.WebResponseObject] $ThisGamesWebObject = $null
 
@@ -2835,18 +2856,18 @@ if ($RunScript)
                     }
 
 
-                    ActionMsg "Parsing page data.."
+                    ActionMsg "Parsing page data"
 
                     [System.MarshalByRefObject] $ThisGamesPage = New-Object -Com "HTMLFile"
 
                     $ThisGamesPage.Write([System.Text.Encoding]::Unicode.GetBytes($ThisGamesWebObject))
 
 
-                    ActionMsg "Checking for app id '$($ThisGame.AppID)' in page header.."
+                    ActionMsg "Checking for app id '$($ThisGame.AppID)' in page header"
 
                     if ($ThisGamesPage.head.outerHTML -NotLike "*$($ThisGame.AppID)*")
                     {
-                        BadMsg "Store page does not exist at '$($ThisGame.Store)'.."
+                        BadMsg "Store page does not exist at '$($ThisGame.Store)'"
 
                         SendUserToNextGame
 
@@ -2854,7 +2875,7 @@ if ($RunScript)
                     }
 
 
-                    ActionMsg "Gathering media.."
+                    ActionMsg "Gathering media"
 
                     foreach ($Movie in ($ThisGamesPage.getElementsByClassName("$($SteamGameStoreMovieClassPattern)")))
                     {
@@ -2882,25 +2903,25 @@ if ($RunScript)
                 }
                 else
                 {
-                    ActionMsg "Reusing previously retrieved information.."
+                    ActionMsg "Reusing previously retrieved information"
                 }
 
 
                 if (($ThisGame.Videos.Count -eq 0) -and ($ThisGame.Images.All.Count -eq 0))
                 {
-                    BadMsg "No media to use for '$($ThisGame.Name)' @ '$($ThisGame.Store)'.."
+                    BadMsg "No media to use for '$($ThisGame.Name)' @ '$($ThisGame.Store)'"
 
                     SendUserToNextGame
 
                     continue
                 }
 
-                GoodMsg "Found $($ThisGame.Videos.Count) video$(if ($ThisGame.Videos.Count -ne 1){"s"}) & $($ThisGame.Images.All.Count) image$(if ($ThisGame.Images.All.Count -ne 1){"s"}).."
+                GoodMsg "Found $($ThisGame.Videos.Count) video$(if ($ThisGame.Videos.Count -ne 1){"s"}) & $($ThisGame.Images.All.Count) image$(if ($ThisGame.Images.All.Count -ne 1){"s"})"
 
                 if ((($ThisGame.Videos.Count -eq 0) -or (AllVideosViewed)) -and
                     ($ThisGame.Images.Viewed))
                 {
-                    NoticeMsg "Resetting flags for all viewed '$($ThisGame.Name)' media.."
+                    NoticeMsg "Resetting flags for all viewed '$($ThisGame.Name)' media"
 
                     if ($ThisGame.Videos.Count -gt 0)
                     {
@@ -2914,7 +2935,7 @@ if ($RunScript)
                 }
 
 
-                ActionMsg "Selecting media.."
+                ActionMsg "Selecting media"
 
                 [string] $HTML = ""
 
@@ -2922,7 +2943,7 @@ if ($RunScript)
 
                 if (($ThisGame.Videos.Count -eq 0) -or (AllVideosViewed))
                 {
-                    ActionMsg "Generating image page.."
+                    ActionMsg "Generating image page"
 
                     [string] $Style = GenerateStyle -ImagePage
 
@@ -2940,7 +2961,7 @@ if ($RunScript)
 
                     [Video] $VideoChoice = $ThisGame.Videos[$VideoIndex]
 
-                    ActionMsg "Generating video page.."
+                    ActionMsg "Generating video page"
 
                     [string] $Style = GenerateStyle -VideoPage
 
@@ -2975,7 +2996,7 @@ if ($RunScript)
                     $Global:Context.Request.HttpMethod -eq 'POST' -or
                     $Global:Context.Request.HttpMethod -eq 'GET')
             {
-                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'."
+                NetMsg "User: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
 
                 NoticeMsg "Ignored non-implemented request: '$($Global:Context.Request.HttpMethod) - $($Global:Context.Request.Url)'"
             }
@@ -2993,10 +3014,10 @@ if ($RunScript)
 }
 else
 {
-    BadMsg "Set `$RunScript to `$true to run.."
+    BadMsg "Set `$RunScript to `$true to run"
 }
 
-GoodMsg "$($ScriptName) has ended$(if ($Logging) {" [ Log was appended to '$($LogFile)' ]"})$(if ($SaveProfileData) {" [ Gathered profile data was exported to '$($SaveFile)' ]"}).."
+GoodMsg "$($ScriptName) has ended$(if ($Logging) {" [ Log was appended to '$($LogFile)' ]"})$(if ($SaveProfileData) {" [ Gathered profile data was exported to '$($SaveFile)' ]"})"
 
 
 #endregion <# MAIN SCRIPT #>

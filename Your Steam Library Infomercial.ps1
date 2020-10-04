@@ -733,8 +733,6 @@ Microsoft Edge Version 44.19041.423.0
 
             <# This is a bit of a mess. $SteamWebSession proved difficult to reuse.  May look at it in the future. #>
 
-            #throw "
-
             ActionMsg "Getting Header Cookie"
 
             [string] $SessionID = ($WebResponse.Headers.$SteamSetcookie).split(';')[0]

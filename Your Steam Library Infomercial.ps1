@@ -280,7 +280,7 @@ Microsoft Edge Version 44.19041.423.0
 
         [string] $SteamProfileAvatarClassName = "playerAvatar"
 
-        [string] $SteamPofileAvatarImagePattern = "/avatars/"
+        [string] $SteamPofileAvatarImagePattern = "https://avatars."
 
         [string] $SteamPofileNameClassName = "whiteLink persona_name_text_content"
 

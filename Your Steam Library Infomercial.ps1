@@ -28,6 +28,7 @@ control by stepping forward or backwards through the library!
 ## USAGE
 1. Download _Your Steam Library Infomercial.ps1_
 2. Run the script on your computer.
+	a) To temporarly bypass Set-ExecutionPolicy errors run: _Powershell.exe -ExecutionPolicy ByPass -File '.\Your Steam Library Infomercial.ps1'_
 3. Visit the home page (Default is http://localhost:8080 )
 4. Plug in a valid Steam profile URL
 5. Click search, and it will generate a randomized playlist of games.
@@ -754,7 +755,7 @@ Microsoft Edge Version 44.19041.423.0
             {
                 WebMsg "Posting '$($ReturnData)' to '$($ReturnURL)'"
 
-                [Microsoft.PowerShell.Commands.WebResponseObject] $Response = Invoke-WebRequest $ReturnURL -WebSession $SteamWebSession -Body $ReturnData -Method Post -ErrorAction STOP
+                [Microsoft.PowerShell.Commands.WebResponseObject] $Response = Invoke-WebRequest -UseBasicParsing $ReturnURL -WebSession $SteamWebSession -Body $ReturnData -Method Post -ErrorAction STOP
 
                 GetWebResult $Response
 
